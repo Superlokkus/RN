@@ -18,7 +18,7 @@ class PingClient
 	      byte[] sendData = new byte[1024]; 
 	      byte[] receiveData = new byte[1024]; 
 	      
-	      Duration RTTsum = Duration.ZERO; Duration RTTmin = Duration.ZERO; Duration RTTmax = Duration.ZERO;
+	      Duration RTTsum = Duration.ZERO; Duration RTTmin = Duration.ofDays(1); Duration RTTmax = Duration.ZERO;
 	      int i = 0;
 	      for (; i < 10; i++)
 	      {
@@ -38,10 +38,17 @@ class PingClient
 		      DatagramPacket receivePacket = 
 		         new DatagramPacket(receiveData, receiveData.length); 
 		
-		      clientSocket.receive(receivePacket);
+		      try{
+		    	  clientSocket.receive(receivePacket);  
+		      }
+		      catch (SocketTimeoutException e)
+		      {
+		    	  System.out.println(msg + ": TIMEOUT");
+		    	  continue;
+		      }
+		      
 		      Instant postsend = Instant.now();
 		  
-		      
 		      String modifiedSentence = 
 		          new String(receivePacket.getData()); 
 		      

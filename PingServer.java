@@ -7,8 +7,8 @@ import java.util.*;
  */
 public class PingServer
 {
-   private static final double LOSS_RATE = 0;
-   private static final int AVERAGE_DELAY = 0;  // milliseconds
+   private static final double LOSS_RATE = 0.3;
+   private static final int AVERAGE_DELAY = 20;  // milliseconds
 
    public static void main(String[] args) throws Exception
    {
